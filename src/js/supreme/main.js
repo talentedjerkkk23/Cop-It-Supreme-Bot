@@ -3,12 +3,9 @@ const
 	validUrl = {
 		item: url => {
 			if (url.indexOf("http://www.supremenewyork.com/shop/") != -1) {
-<<<<<<< HEAD
-				const forbidden = ['cart', 'all', 'sizing', 'shipping', 'terms', 'faq']
-=======
-				let forbidden = ['cart', 'all', 'sizing', 'shipping', 'terms', 'faq']
->>>>>>> 33b86898e5bf404bfc69de732b131a2e91edbbca
-				var path = location.href.split('/')[4]
+				var forbidden = ['cart', 'all', 'sizing', 'shipping', 'terms', 'faq']
+				, 	path = location.href.split('/')[4]
+				
 				if (forbidden.includes(path))
 					return false
 				else 

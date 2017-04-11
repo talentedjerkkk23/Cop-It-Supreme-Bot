@@ -1,4 +1,5 @@
-const 
+const
+	DATA = JSON.parse(localStorage["data"]),
 	generateExpireDate = () => {
 		const expireMonth = document.getElementById("card_month")
 		for (var m = 1; m <= 12; m++) {
@@ -30,12 +31,22 @@ const
 				"cvv",
 				"city",
 				"zip",
+				'state',
+				'province',
 				"country"],
 		fill: () => {
 			document.getElementById("cgu").checked = JSON.parse(localStorage['cgu'])
 			Data.fields.forEach(data => {
-				if (typeof JSON.parse(localStorage["data"])[data] !== "undefined")
-					document.getElementById(data).value = JSON.parse(localStorage["data"])[data]
+				if (typeof DATA[data] !== "undefined")
+					document.getElementById(data).value = DATA[data]
+
+				//display province/state if country is canada/usa
+				if (data == 'country') {
+					if (DATA.country == "USA")
+						document.getElementById('state_row').style = ''
+					else if (DATA.country == "CANADA")
+						document.getElementById('province_row').style = ''
+				}
 			})
 		},
 		checkIfFilled: cb => {
@@ -43,13 +54,30 @@ const
 				cb(gM("dataErrorTos"))
 			else {
 				let error = ''
-				Data.fields.forEach((data, index, array) => {
-					//address2 and 3 are optional
-					if (document.getElementById(data).value == '' && data != "address2" && data != "address3")
-						error += gM("emptyField", data)
+				Data.fields.forEach((input, index, array) => {
+					if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
+						//address2 and 3 are optional
+						if (input != "address2" && input != "address3") {
+							error += gM("emptyField", input)
+						}
+					}
 					if (index === array.length - 1) cb(error)
 				})
 			}
+		}
+	},
+	countryChange = () => {
+		var country = document.getElementById('country')
+		if (country.value == "USA") {
+			document.getElementById('state_row').style = ''
+			document.getElementById('province_row').style.display = 'none'
+		}
+		else if (country.value == "CANADA") {
+			document.getElementById('province_row').style = ''
+			document.getElementById('state_row').style.display = 'none'
+		} else {
+			document.getElementById('province_row').style.display = 'none'
+			document.getElementById('state_row').style.display = 'none'
 		}
 	},
 	editData = () => {
@@ -65,6 +93,8 @@ const
 			} else dsp(r, "error")		
 		})
 	}
+
+document.getElementById('country').onchange = countryChange
 
 document.getElementById("cgu").onclick = _ => {
 	localStorage['cgu'] = document.getElementById("cgu").checked

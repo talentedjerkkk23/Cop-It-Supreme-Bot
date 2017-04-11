@@ -5,7 +5,7 @@
   "default_locale": "en",
   "short_name": "CopIt",
   "description": "__MSG_extDesc__",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "author": "Carl1to",
   "icons": {
     "256": "images/icon.png"

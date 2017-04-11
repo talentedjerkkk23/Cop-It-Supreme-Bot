@@ -1,7 +1,7 @@
 {
   "name": "CopIt",
-  "version": "1.0.11",
-  "description": "Supreme bot as chrome extens",
+  "version": "1.0.12",
+  "description": "Supreme bot as chrome extension",
   "dependencies": {
     "gulp": "~3.9.1",
     "gulp-concat": "~2.6.1",

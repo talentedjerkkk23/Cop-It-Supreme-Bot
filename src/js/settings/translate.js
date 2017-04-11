@@ -37,7 +37,9 @@ const translate = {
 		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[5].childNodes[0].innerText = gM("data3_3")
 		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[6].childNodes[0].innerText = gM("data4")
 		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[7].childNodes[0].innerText = gM("data5")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[8].childNodes[0].innerText = gM("data6")
+		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[8].childNodes[0].innerText = gM("data6_1")
+		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[9].childNodes[0].innerText = gM("data6_2")
+		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[10].childNodes[0].innerText = gM("data6_3")
 		//Billing
 		document.getElementById("data").childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[0].childNodes[0].innerText = gM("data7")
 		document.getElementById("data").childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerText = gM("data8")

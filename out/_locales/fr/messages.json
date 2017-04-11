@@ -160,7 +160,7 @@
 		"description": "Address, street and number"
 	},
 	"data3_3": {
-		"message": "Adresse 3",
+		"message": "Adresse 3 (Europe uniquement)",
 		"description": "Address, street and number"
 	},
 	"data4": {
@@ -171,7 +171,15 @@
 		"message": "Code Postal",
 		"description": "Zip Code"
 	},
-	"data6": {
+	"data6_1": {
+		"message": "Etat",
+		"description": "State (USA only)"
+	},
+	"data6_2": {
+		"message": "Province",
+		"description": "Province (Canada only)"
+	},
+	"data6_3": {
 		"message": "Pays",
 		"description": "Country"
 	},

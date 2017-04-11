@@ -160,7 +160,7 @@
 		"description": "Address, street and number"
 	},
 	"data3_3": {
-		"message": "Adress 3",
+		"message": "Adress 3 (Europe only)",
 		"description": "Address, street and number"
 	},
 	"data4": {
@@ -171,12 +171,20 @@
 		"message": "Zip code",
 		"description": "Zip Code"
 	},
-	"data6": {
+	"data6_1": {
+		"message": "State",
+		"description": "State (USA only)"
+	},
+	"data6_2": {
+		"message": "Province",
+		"description": "Province (Canada only)"
+	},
+	"data6_3": {
 		"message": "Country",
 		"description": "Country"
 	},
 	"data7": {
-		"message": "Card tyoe",
+		"message": "Card type",
 		"description": "Card brand/type"
 	},
 	"data8": {
@@ -200,8 +208,8 @@
 		"description": "Need accept tos before submit"
 	},
 	"dataSuccess": {
-		"message": "Informations has been updated",
-		"description": "Infos has been updated"
+		"message": "Information has been updated",
+		"description": "Info has been updated"
 	},
 	"dataEdit": {
 		"message": "Edit",
