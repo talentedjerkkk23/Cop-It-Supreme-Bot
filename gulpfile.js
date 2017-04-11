@@ -24,7 +24,7 @@ gulp.task('html', function() {
 gulp.task('css', function() {
   return gulp.src('src/css/*.css')
     .pipe(cleanCSS())
-    .pipe(gulp.dest('release/dist/css'))
+    .pipe(gulp.dest('src/dist/css'))
 })
 
 gulp.task('build', function() {
