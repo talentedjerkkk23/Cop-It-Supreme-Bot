@@ -151,7 +151,6 @@
 		"message": "Phone number",
 		"description": "Phone number"
 	},
-<<<<<<< HEAD
 	"data3_1": {
 		"message": "Adress 1",
 		"description": "Address, street and number"
@@ -162,10 +161,6 @@
 	},
 	"data3_3": {
 		"message": "Adress 3",
-=======
-	"data3": {
-		"message": "Address",
->>>>>>> 33b86898e5bf404bfc69de732b131a2e91edbbca
 		"description": "Address, street and number"
 	},
 	"data4": {

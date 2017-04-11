@@ -44,7 +44,9 @@ const
 			else {
 				let error = ''
 				Data.fields.forEach((data, index, array) => {
-					if (document.getElementById(data).value == '') error += gM("emptyField", data)
+					//address2 and 3 are optional
+					if (document.getElementById(data).value == '' && data != "address2" && data != "address3")
+						error += gM("emptyField", data)
 					if (index === array.length - 1) cb(error)
 				})
 			}
