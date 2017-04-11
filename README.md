@@ -2,6 +2,7 @@
 Supreme bot extension for Google Chrome. With this bot you can cop any item you want. Make with JavaScript, HTML/CSS and bootstrap 4.
 
 ## Features
+* USA and CANADA now supported!
 * Available in French and English! (manage languages in `out/_locales` folder)
 * Multi keywords management, choose color and size
 * Instant buy button on every item page
