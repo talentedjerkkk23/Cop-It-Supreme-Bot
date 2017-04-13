@@ -16,11 +16,12 @@ const translate = {
 		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].innerText = gM("params0")
 		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].innerText = gM("params1")
 		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[2].childNodes[0].innerText = gM("params2")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[3].childNodes[0].innerText = gM("params3")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[4].childNodes[0].innerText = gM("params4")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[5].childNodes[0].innerText = gM("params5")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[6].childNodes[0].innerText = gM("params6")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[7].childNodes[0].innerText = gM("params7")
+		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[3].childNodes[0].innerText = gM("params2_1")
+		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[4].childNodes[0].innerText = gM("params3")
+		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[5].childNodes[0].innerText = gM("params4")
+		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[6].childNodes[0].innerText = gM("params5")
+		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[7].childNodes[0].innerText = gM("params6")
+		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[8].childNodes[0].innerText = gM("params7")
 		document.getElementById("main").childNodes[2].childNodes[0].childNodes[1].childNodes[0].innerText = gM("submit")
 	},
 	data: () => {

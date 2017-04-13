@@ -33,7 +33,9 @@ const fillCheckout = () => {
 				$('#credit_card_month').val(r.card_month)
 				$('#credit_card_year').val(r.card_year)
 				$(".icheckbox_minimal").click()
-				$('[name=commit]').click()
+				if (settings.autoCheckout)
+					$('[name=commit]').click()
+
 			}
 		})
 	})

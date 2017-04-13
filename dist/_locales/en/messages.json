@@ -96,8 +96,12 @@
 		"description": "Check cart before checkout"
 	},
 	"params2": {
-		"message": "Auto-fill checkout page and submit it",
-		"description": "Fill checkout page and submit it"
+		"message": "Auto-fill checkout page",
+		"description": "Fill checkout page"
+	},
+	"params2_1": {
+		"message": "Auto submit checkout page",
+		"description": "Submit checkout page"
 	},
 	"params3": {
 		"message": "Retry when payment failed (the previous parameter must be enabled)",

@@ -96,8 +96,12 @@
 		"description": "Check cart before checkout"
 	},
 	"params2": {
-		"message": "Remplir page de paiement automatiquement et la validé",
-		"description": "Fill checkout page and submit it"
+		"message": "Remplir page de paiement automatiquement",
+		"description": "Fill checkout page"
+	},
+	"params2_1": {
+		"message": "Valider la page de paiement automatiquement",
+		"description": "Submit checkout page"
 	},
 	"params3": {
 		"message": "Ressaie si il y a une erreur au paiement (le paramètre précédent doit être activé)",
