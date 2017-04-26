@@ -14,8 +14,9 @@ const
 			var minutes = currentDate.getMinutes().toString().length < 2 ? "0" + "" + currentDate.getMinutes() : currentDate.getMinutes()
 			var seconds = currentDate.getSeconds().toString().length < 2 ? "0" + "" + currentDate.getSeconds() : currentDate.getSeconds()
 			var nowTime = parseInt(currentDate.getHours() + "" + minutes + "" + seconds)
+			var startTime = parseInt(settings["startTime"].replace(/:/g, ""))
 
-			if (!isNaN(parseInt(settings["startTime"].replace(/:/g, ""))) && nowTime < parseInt(settings["startTime"].replace(/:/g, "")))
+			if (Number.isNumber(startTime) && nowTime < startTime)
 				$("#loader").html(gM("startAt", settings["startTime"]))
 
 
@@ -38,7 +39,7 @@ if (isKwInstalled() && enabledExtension) {
 }
 
 document.getElementById("nbkws").innerHTML = (() => {
-	let nb = keywordData[0]['keyword'] != '' ? Object.keys(keywordData).length : 0
+	var nb = keywordData[0]['keyword'] != '' ? Object.keys(keywordData).length : 0
 
 	return '<b>' + gM('nbKeywords', nb) +'</b>'
 })()

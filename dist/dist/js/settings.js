@@ -53,7 +53,7 @@ const
 			if (document.getElementById("cgu").checked === false)
 				cb(gM("dataErrorTos"))
 			else {
-				let error = ''
+				var error = ''
 				Data.fields.forEach((input, index, array) => {
 					if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
 						//address2 and 3 are optional
@@ -208,7 +208,7 @@ function addKeywordForm(id) {
 		keywordfields.forEach(name => {
 			var field = name + "[" + id + "]"
 			if (name == "size") {
-				let category = JSON.parse(localStorage["keyword"])[formId]["category"]
+				var category = JSON.parse(localStorage["keyword"])[formId]["category"]
 				if (checkIsOnJSON(differentSize, category))
 					document.getElementById(field).innerHTML = differentSize[category]
 				else
@@ -220,7 +220,7 @@ function addKeywordForm(id) {
 
 	//change size list
 	document.getElementById("category["+formId+"]").onchange = () => {
-		let category = document.getElementById("category["+formId+"]").value
+		var category = document.getElementById("category["+formId+"]").value
 		if (checkIsOnJSON(differentSize, category))
 			document.getElementById("size["+formId+"]").innerHTML = differentSize[category]
 		else

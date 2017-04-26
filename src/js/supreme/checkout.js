@@ -4,7 +4,6 @@ const fillCheckout = () => {
 		
 		chrome.runtime.sendMessage({msg: "params"}, function(settings) {
 
-			//this check if choosen country is in country list
 			if ($('#order_billing_country').find('option[value=' + r.country + ']').length > 0) {
 				//this remove captcha but not stable, payment failed sometimes
 				if (settings.removeCaptcha)
@@ -34,7 +33,7 @@ const fillCheckout = () => {
 				$('#credit_card_year').val(r.card_year)
 				$(".icheckbox_minimal").click()
 				if (settings.autoCheckout)
-					$('[name=commit]').click()
+					setTimeout(() => $('[name=commit]').click(), 1380)
 
 			}
 		})

@@ -4,7 +4,7 @@ const
 		var startTime = JSON.parse(localStorage["params"])["startTime"] != undefined ? JSON.parse(localStorage["params"])["startTime"] : '0'
 		startTime = parseInt(startTime.replace(/:/g, ""))
 
-		var waitTime = setInterval(_ => {
+		var waitTime = setInterval(() => {
 
 			var currentDate = new Date()
 			var minutes = currentDate.getMinutes().toString().length < 2 ? "0" + "" + currentDate.getMinutes() : currentDate.getMinutes()
@@ -20,7 +20,7 @@ const
 						//start the bot
 						keywordData = JSON.parse(localStorage["keyword"])
 						_initKeyword()
-						return copById(0)
+						return cop(0)
 					}
 				}
 				else {
@@ -47,12 +47,12 @@ const
 			})
 		})
 	},
-	copById = id => {
+	cop = id => {
 		//cop by item id
 		if (keywordData[id] != undefined) {
 			var url = "http://www.supremenewyork.com/shop/all/" + keywordData[id]['category']
 			updateTab(url, () => {
-				//inject keyword.js to found item
+				//inject keyword.js to item page
 				chrome.tabs.executeScript(null, { file: '/dist/js/keyword.js' }, function(){
 					chrome.tabs.executeScript(null, {
 					    code: 'find('+id+')'
@@ -80,7 +80,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 			var nextID = parseInt(request.id)+1
 
 			if (keywordID[nextID] != undefined) //check if there are other item to cop
-				copById(keywordID[nextID])
+				cop(keywordID[nextID])
 			else { //go checkout
 
 				//get cookie to see how many items in cart

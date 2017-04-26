@@ -1,6 +1,5 @@
-["data", "params"].forEach(val => {
-	if (typeof localStorage[val] !== "string") localStorage[val] = "{}"
-})
+if (typeof localStorage["data"] !== "string") localStorage["data"] = "{}"
+if (typeof localStorage["params"] !== "string") localStorage["params"] = "{}"
 if (typeof localStorage["keyword"] !== "string") localStorage["keyword"] = '{"0": {"category":"jackets", "keyword": "", "color": "", "size": "Small"}}'
 if(localStorage['cgu'] === undefined) localStorage['cgu'] = false
 

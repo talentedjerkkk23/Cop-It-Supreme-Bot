@@ -53,7 +53,7 @@ const
 			if (document.getElementById("cgu").checked === false)
 				cb(gM("dataErrorTos"))
 			else {
-				let error = ''
+				var error = ''
 				Data.fields.forEach((input, index, array) => {
 					if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
 						//address2 and 3 are optional
