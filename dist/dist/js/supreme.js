@@ -171,7 +171,8 @@ function runKeyword() {
 					if (res["nextSize"])
 						_submitForm()
 					else 
-						chrome.runtime.sendMessage({msg: "cop", id: key})
+						//chrome.runtime.sendMessage({msg: "cop", id: key})
+						console.log()
 				})
 				break
 			}

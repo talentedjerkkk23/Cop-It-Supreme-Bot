@@ -11,16 +11,16 @@ const
 			chrome.runtime.sendMessage({msg: 'startBot'})
 
 			var currentDate = new Date()
-			var minutes = currentDate.getMinutes().toString().length < 2 ? "0" + "" + currentDate.getMinutes() : currentDate.getMinutes()
-			var seconds = currentDate.getSeconds().toString().length < 2 ? "0" + "" + currentDate.getSeconds() : currentDate.getSeconds()
-			var nowTime = parseInt(currentDate.getHours() + "" + minutes + "" + seconds)
+			var minutes = currentDate.getMinutes() < 10 ? "0" + "" + currentDate.getMinutes() : currentDate.getMinutes()
+			var seconds = currentDate.getSeconds() < 10 ? "0" + "" + currentDate.getSeconds() : currentDate.getSeconds()
+			var nowTime = currentDate.getHours() + "" + minutes + "" + seconds
 			var startTime = parseInt(settings["startTime"].replace(/:/g, ""))
 
-			if (Number.isNumber(startTime) && nowTime < startTime)
-				$("#loader").html(gM("startAt", settings["startTime"]))
+			if (Number.isInteger(startTime) && nowTime < startTime)
+				loaderCountdown(settings["startTime"])
+			else
+				$("#loader").html("<u>" + gM("loader") + "</u>")
 
-
-			$("#loader").html("<u>" + gM("loader") + "</u>")
 			$("#loader").fadeIn("fast")
 
 			start.className = 'button disabled'
@@ -30,6 +30,22 @@ const
 		} else {
 			alert(gM('fillDatas'))
 		}
+	}
+	loaderCountdown = startTime => {
+		var separation = startTime.split(':')
+		var startSeconds = (+separation[0]) * 60 * 60 + (+separation[1]) * 60 + (+separation[2])
+		var refresh = setInterval(() => {
+			let currentDate = new Date()
+			let nowTime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds()
+			let separationNow = nowTime.split(':')
+			let nowSeconds = (+separationNow[0]) * 60 * 60 + (+separationNow[1]) * 60 + (+separationNow[2])
+			let seconds = startSeconds - nowSeconds
+			if (seconds == 0) {
+				clearInterval(refresh)
+				$("#loader").html("<u>" + gM("loader") + "</u>")
+			} else
+				$("#loader").html(gM("startAt", seconds))
+		}, 1000)
 	}
 
 if (isKwInstalled() && enabledExtension) {

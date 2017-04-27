@@ -104,26 +104,29 @@ document.getElementById("edit").onclick = editData
 const 
 	keywordfields = ['category', 'keyword', 'color', 'size'],
 	differentSize = {"pants":
-							"<option value=\"30\">30</option>" + 
-							"<option value=\"32\">32</option>" +
-							"<option value=\"34\">34</option>" +
-							"<option value=\"36\">36</option>" +
+							"<option>30</option>" + 
+							"<option>32</option>" +
+							"<option>34</option>" +
+							"<option>36</option>" +
 							"<option value=\"0\">" + gM("noMatter") + "</option>",
 				    "shoes":
-							"<option value=\"6\">6</option>" + 
-							"<option value=\"7\">7</option>" +
-							"<option value=\"8\">8</option>" +
-							"<option value=\"8.5\">8.5</option>" +
-							"<option value=\"9.5\">9.5</option>" +
-							"<option value=\"10\">10</option>" +
-							"<option value=\"11\">11</option>" +
-							"<option value=\"11.5\">11.5</option>" +
+							"<option>US 7 / UK 6</option>" + 
+							"<option>US 7.5 / UK 6.5</option>" +
+							"<option>US 8 / UK 7</option>" +
+							"<option>US 8.5 / UK 7.5</option>" +
+							"<option>US 9 / UK 8</option>" +
+							"<option>US 9.5 / UK 8.5</option>" +
+							"<option>US 10 / UK 9</option>" +
+							"<option>US 10.5 / UK 9.5</option>" +
+							"<option>US 11 / UK 10</option>" +
+							"<option>US 11.5 / UK 10.5</option>" +
+							"<option>US 12 / UK 11</option>" +
 							"<option value=\"0\">" + gM("noMatter") + "</option>",
 					"default":
-							"<option value=\"Small\">Small</option>" +
-	                        "<option value=\"Medium\">Medium</option>" +
-	                        "<option value=\"Large\">Large</option>" +
-	                        "<option value=\"XLarge\">XLarge</option>" +
+							"<option>Small</option>" +
+	                        "<option>Medium</option>" +
+	                        "<option>Large</option>" +
+	                        "<option>XLarge</option>" +
 	                        "<option value=\"0\">" + gM("noMatter") + "</option>"},
 	checkIsOnJSON = (json, value) => {
 	    for (key in json) {
@@ -187,12 +190,8 @@ function addKeywordForm(id) {
                                 '<tr><td>' + gM("keywordsField") + '</td><td><input class="form-control" id="keyword['+formId+']" type="text"/></td></tr>' +
                                 '<tr><td>' + gM("color") + '</td><td><input class="form-control" id="color['+formId+']" type="text"/></td></tr>' +
                                 '<tr><td>' + gM("size") + '</td><td>' +
-                                    '<select class="form-control" id="size['+formId+']">' +
-                                        '<option value="Small">Small</option>' +
-                                        '<option value="Medium">Medium</option>' +
-                                        '<option value="Large">Large</option>' +
-                                        '<option value="XLarge">XLarge</option>' +
-                                        '<option value=\"0\">' + gM("noMatter") + '</option>' +
+                                    '<select class="form-control" id="size['+formId+']">'
+                                        + differentSize.default +
                                     '</select>' +
                                 '</td></tr>' +
                                 deleteLine +
@@ -226,7 +225,7 @@ function addKeywordForm(id) {
 		else
 			document.getElementById("size["+formId+"]").innerHTML = differentSize["default"]
 	}
-	//delete event, we can't delete keyword with id 0
+	//delete form, we can't delete keyword with id 0
 	if (formId != 0)
 		document.getElementById('removeForm['+formId+']').onclick = () => 
 			document.getElementById("keywordsForm").removeChild(document.getElementById("keywordForm["+formId+"]"))
