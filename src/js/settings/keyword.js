@@ -25,13 +25,6 @@ const
 	                        "<option>Large</option>" +
 	                        "<option>XLarge</option>" +
 	                        "<option value=\"0\">" + gM("noMatter") + "</option>"},
-	checkIsOnJSON = (json, value) => {
-	    for (key in json) {
-	        if (key === value)
-	            return true
-	    }
-	    return false
-	},
 	editKeyword = () => {
 		var keywordData = {}, error = ""
 		Array.prototype.forEach.call(document.getElementsByClassName("kwf"), (element, divIndex, divArray) => {
@@ -105,7 +98,7 @@ function addKeywordForm(id) {
 			var field = name + "[" + id + "]"
 			if (name == "size") {
 				var category = JSON.parse(localStorage["keyword"])[formId]["category"]
-				if (checkIsOnJSON(differentSize, category))
+				if (differentSize[category] !== undefined)
 					document.getElementById(field).innerHTML = differentSize[category]
 				else
 					document.getElementById(field).innerHTML = differentSize["default"]
@@ -117,7 +110,7 @@ function addKeywordForm(id) {
 	//change size list
 	document.getElementById("category["+formId+"]").onchange = () => {
 		var category = document.getElementById("category["+formId+"]").value
-		if (checkIsOnJSON(differentSize, category))
+		if (differentSize[category] !== undefined)
 			document.getElementById("size["+formId+"]").innerHTML = differentSize[category]
 		else
 			document.getElementById("size["+formId+"]").innerHTML = differentSize["default"]

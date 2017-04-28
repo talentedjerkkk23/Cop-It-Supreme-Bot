@@ -40,10 +40,10 @@
 		"description": "Documentation value"
 	},
 	"startAt": {
-		"message": "Le bot va démarré dans $hour$ seconds",
+		"message": "Le bot va démarré dans $seconds$ seconds",
 		"description": "Hour of the bot will start",
 		"placeholders": {
-			"hour": {
+			"seconds": {
 				"content": "$1",
 				"example": "45"
 			}

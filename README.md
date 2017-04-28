@@ -2,6 +2,8 @@
 Supreme bot extension for Google Chrome. With this bot you can cop any item you want. Make with JavaScript, HTML/CSS and bootstrap 4.
 
 ## Features
+* (NEW) You can run the bot in background! Just open tab on "supremenewyork.com" page and start the bot on other tab.
+* (NEW) Shoes sizes has been fixed! You can now cop shoes with keywords.
 * USA and CANADA now supported!
 * Available in French and English! (manage languages in `out/_locales` folder)
 * Multi keywords management, choose color and size
