@@ -25,9 +25,9 @@ const
 						else if (tab == tabs.length - 1) {
 							clearInterval(waitTime)
 							if (startTime < nowTime)
-								alert(gM("notOnSupreme"))
+								alert("You must be on supremenewyork.com to start the bot")
 							else
-								alert(gM("quitSupreme"))
+								alert("Bot will not start because you left supremenewyork.com page.")
 						}
 					}
 				}
@@ -111,7 +111,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 							if (JSON.parse(localStorage["params"])["retrykeyword"] > 0) 
 								setTimeout(_startTheBot, parseInt(JSON.parse(localStorage["params"])["retrykeyword"]))
 							else
-								alert(gM("noItemFound"))
+								alert("No item found with provided keywords, please check them.")
 							break
 						}
 					}

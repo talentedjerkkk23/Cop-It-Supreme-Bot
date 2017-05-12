@@ -2,10 +2,10 @@
 Supreme bot extension for Google Chrome. With this bot you can cop any item you want. Make with JavaScript, HTML/CSS and bootstrap 4.
 
 ## Features
-* (NEW) You can run the bot in background! Just open tab on "supremenewyork.com" page and start the bot on other tab.
-* (NEW) Shoes sizes has been fixed! You can now cop shoes with keywords.
-* USA and CANADA now supported!
-* Available in French and English! (manage languages in `out/_locales` folder)
+* (NEW) Theme has been updated, dark theme now.
+* You can run the bot in background, just open tab on "supremenewyork.com" page and start the bot on other tab.
+* All sizes available (pants, top, shoes)
+* USA, CANADA and EUROPE are supported.
 * Multi keywords management, choose color and size
 * Instant buy button on every item page
 * Start at wanted time
@@ -15,21 +15,12 @@ Supreme bot extension for Google Chrome. With this bot you can cop any item you 
 * Retry when keywords search failed
 
 ## Installation
-You can simply download it [here](https://chrome.google.com/webstore/detail/cop-it-supreme-bot/nnkdcekecphmmnkimhpgangidfcngdpp).
-But if you want manuel installation, go to [chrome://extensions](chrome://extensions), then enable "Developer Mode" and drag the file `CopIt.crx` (you can find it in `bin` folder) on the page.
-
-Go to the settings page and fill it with all settings you want.
-
-## How to build
-Extension is pre-build into `bin` directory.
+Go to [chrome://extensions](chrome://extensions), then enable "Developer Mode" and drag the file `CopIt.crx` (you can find it in `bin` folder) on the page.
 
 So I you want to build yourself with your modifications, just run `npm install`, then `gulp` and finally `gulp build`
 
+Go to the settings page and fill it with all settings you want.
+
 ## Documentation
-You can find all information your need [here](https://copit.fr), you can contact me if you want to know something.
+You can find all information on the settings page, you can contact me at support@copit.fr you want to know something.
 
-*PS: I'm a bad developer, this is my first JavaScript project. That's normal if you don't understand anything in my code.*
-
-*PS2: Sorry for my bad english too.*
-
-Not for commercial use.

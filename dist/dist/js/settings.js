@@ -18,25 +18,25 @@ const
 		}
 	},
 	Data = {
-		fields: ["name",
-				"card_type",
+		fieldsShipping: ["name",
 				"email",
-				"card_number",
 				"phone",
-				"card_month",
-				"card_year",
 				"address1",
 				"address2",
 				"address3",
-				"cvv",
 				"city",
 				"zip",
 				'state',
 				'province',
 				"country"],
+		fieldsBilling: ["card_number",
+						"card_year",
+						"card_month",
+						"card_type",
+						"cvv"],
 		fill: () => {
-			document.getElementById("cgu").checked = JSON.parse(localStorage['cgu'])
-			Data.fields.forEach(data => {
+			var inputs = Data.fieldsShipping.concat(Data.fieldsBilling)
+			inputs.forEach(data => {
 				if (typeof DATA[data] !== "undefined")
 					document.getElementById(data).value = DATA[data]
 
@@ -49,21 +49,26 @@ const
 				}
 			})
 		},
-		checkIfFilled: cb => {
-			if (document.getElementById("cgu").checked === false)
-				cb(gM("dataErrorTos"))
-			else {
-				var error = ''
-				Data.fields.forEach((input, index, array) => {
-					if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
-						//address2 and 3 are optional
-						if (input != "address2" && input != "address3") {
-							error += gM("emptyField", input)
-						}
+		checkIfShippingFilled: cb => {
+			var error = ''
+			Data.fieldsShipping.forEach((input, index, array) => {
+				if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
+					//address2 and 3 are optional
+					if (input != "address2" && input != "address3") {
+						error += "- Field " + input + " is empty.<br/>"
 					}
-					if (index === array.length - 1) cb(error)
-				})
-			}
+				}
+				if (index === array.length - 1) cb(error)
+			})
+		},
+		checkIfBillingFilled: cb => {
+			var error = ''
+			Data.fieldsBilling.forEach((input, index, array) => {
+				if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
+					error += "- Field " + input + " is empty.<br/>"
+				}
+				if (index === array.length - 1) cb(error)
+			})
 		}
 	},
 	countryChange = () => {
@@ -80,12 +85,25 @@ const
 			document.getElementById('state_row').style.display = 'none'
 		}
 	},
-	editData = () => {
-		Data.checkIfFilled(r => {
+	editShipping = () => {
+		Data.checkIfShippingFilled(r => {
 			if (r.length == 0) {
-				dsp(gM("dataSuccess"), "success")
-				var dataObj = {}
-				Data.fields.forEach((data, index, array) => {
+				dsp("Information has been updated", "success")
+				var dataObj = JSON.parse(localStorage["data"])
+				Data.fieldsShipping.forEach((data, index, array) => {
+					dataObj[data] = document.getElementById(data).value
+					if (index === array.length - 1) 
+						localStorage["data"] = JSON.stringify(dataObj)
+				})
+			} else dsp(r, "error")		
+		})
+	},
+	editBilling = () => {
+		Data.checkIfBillingFilled(r => {
+			if (r.length == 0) {
+				dsp("Information has been updated", "success")
+				var dataObj = JSON.parse(localStorage["data"])
+				Data.fieldsBilling.forEach((data, index, array) => {
 					dataObj[data] = document.getElementById(data).value
 					if (index === array.length - 1) 
 						localStorage["data"] = JSON.stringify(dataObj)
@@ -96,10 +114,8 @@ const
 
 document.getElementById('country').onchange = countryChange
 
-document.getElementById("cgu").onclick = _ => {
-	localStorage['cgu'] = document.getElementById("cgu").checked
-}
-document.getElementById("edit").onclick = editData
+document.getElementById("billingSubmit").onclick = editBilling
+document.getElementById("shippingSubmit").onclick = editShipping
 
 const 
 	keywordfields = ['category', 'keyword', 'color', 'size'],
@@ -108,7 +124,7 @@ const
 							"<option>32</option>" +
 							"<option>34</option>" +
 							"<option>36</option>" +
-							"<option value=\"0\">" + gM("noMatter") + "</option>",
+							"<option value=\"0\">No matter</option>",
 				    "shoes":
 							"<option>US 7 / UK 6</option>" + 
 							"<option>US 7.5 / UK 6.5</option>" +
@@ -121,13 +137,13 @@ const
 							"<option>US 11 / UK 10</option>" +
 							"<option>US 11.5 / UK 10.5</option>" +
 							"<option>US 12 / UK 11</option>" +
-							"<option value=\"0\">" + gM("noMatter") + "</option>",
+							"<option value=\"0\">No matter</option>",
 					"default":
 							"<option>Small</option>" +
 	                        "<option>Medium</option>" +
 	                        "<option>Large</option>" +
 	                        "<option>XLarge</option>" +
-	                        "<option value=\"0\">" + gM("noMatter") + "</option>"},
+	                        "<option value=\"0\">No matter</option>"},
 	editKeyword = () => {
 		var keywordData = {}, error = ""
 		Array.prototype.forEach.call(document.getElementsByClassName("kwf"), (element, divIndex, divArray) => {
@@ -137,14 +153,14 @@ const
 			keywordfields.forEach((data, fieldIndex, fieldArray) => {
 				var fieldName = data + "[" + ID + "]"
 				if (document.getElementById(fieldName).value == '') {
-					error += gM("emptyField", fieldName)
+					error += "- Field " + fieldName + " is empty.<br/>"
 				} else {
 					keywordData[ID][data] = document.getElementById(fieldName).value
 				}
 				if (divIndex === divArray.length - 1 && fieldIndex === fieldArray.length - 1) {
 					if (error.length == 0) {
 						localStorage["keyword"] = JSON.stringify(keywordData)
-						dsp(gM("keywordsUpdated"), "success")
+						dsp("Keywords has been updated.", "success")
 					} else dsp(error, "error")
 				}
 			})
@@ -163,9 +179,9 @@ function addKeywordForm(id) {
 		deleteLine = formId != 0 ? '<tr><td colspan="2""><center><button class="btn btn-sm btn-danger" id="removeForm['+formId+']">X</button></center></td</tr>' : ''
 	newForm.className = "col-lg-6 kwf"
 	newForm.id = "keywordForm["+formId+"]"
-	newForm.innerHTML = '<table class="table table-bordered table-sm table-striped" style="margin-top: 20px;">' +
+	newForm.innerHTML = '<table class="table table-sm" style="margin-top: 20px;">' +
                             '<tbody>' +
-                                '<tr><td>' + gM("category") + '</td><td>' +
+                                '<tr><td>Category</td><td>' +
                                     '<select class="form-control" id="category['+formId+']">' +
                                         '<option value="jackets">jackets</option>' +
                                         '<option value="shirts">shirts</option>' +
@@ -180,9 +196,9 @@ function addKeywordForm(id) {
                                         '<option value="skate">skate</option>' +
                                     '</select>' +
                                 '</td></tr>' +
-                                '<tr><td>' + gM("keywordsField") + '</td><td><input class="form-control" id="keyword['+formId+']" type="text"/></td></tr>' +
-                                '<tr><td>' + gM("color") + '</td><td><input class="form-control" id="color['+formId+']" type="text"/></td></tr>' +
-                                '<tr><td>' + gM("size") + '</td><td>' +
+                                '<tr><td>Keywords <i>(Separated from a space)</i></td><td><input class="form-control" id="keyword['+formId+']" type="text"/></td></tr>' +
+                                '<tr><td>Color</td><td><input class="form-control" id="color['+formId+']" type="text"/></td></tr>' +
+                                '<tr><td>Size</td><td>' +
                                     '<select class="form-control" id="size['+formId+']">'
                                         + differentSize.default +
                                     '</select>' +
@@ -231,6 +247,61 @@ for(var key in JSON.parse(localStorage["keyword"]))
 
 document.getElementById('addKeywordButton').onclick = addKeywordForm
 document.getElementById('editKeyword').onclick = editKeyword
+const rightMargin = $(".tab-pane.active").css('marginRight')
+
+$(".nav-item").click(e => {
+
+	var elementToDisplay = $("#" + e.target.getAttribute("show"))
+
+	//NAVBAR
+	$(".nav-item.active").removeClass("active")
+	$(e.target).parent().addClass("active")
+
+	//DIV
+	var elementToHide = $(".tab-pane.active")
+	elementToHide.animate({'margin-left': '-1000px'}, 400, () => {
+
+		elementToHide.removeClass('active')
+		elementToHide.hide(1, () => {
+
+			elementToHide.css({'marginLeft': 'auto', 'marginRight': '-1000px'})
+
+			elementToDisplay.animate({'margin-right': rightMargin}, 400)
+			elementToDisplay.addClass('active')
+			elementToDisplay.show()
+		})
+	})
+})
+
+$("#settings tr").mouseover(e => {
+	var id = e.currentTarget.childNodes[1].childNodes[0].id || e.currentTarget.childNodes[1].childNodes[0].childNodes[0].id
+	$("#docSettings").html(getSettingsDoc(id))
+})
+
+function getSettingsDoc(id) {
+	switch (id) {
+		case 'enabled':
+			return "If this box is not checked, bot will be totally disabled."
+		case 'checkCart':
+			return "If you use keywords and if you found one or more items, this option will let you check your cart before checkout. We recommand you to use this option."
+		case 'autoFill':
+			return "When you are on checkout page (URL: http://supremenewyork.com/checkout), the form will be automatically filled with your information."
+		case 'autoCheckout':
+			return "The checkout form will be submitted automatically if this option is enabled."
+		case 'retryOnFail':
+			return "If when you are purchasing you got an error, the bot will try again until payment done <i style=\"color: #fff;\">(Option \"Auto-fill checkout page and submit it\" must be enabled)</i>"
+		case 'nextSize':
+			return "With keywords you can choose the wanted size, if size is sold-out, the bot will choose the next one."
+		case 'startTime':
+			return "Start time must be in this format hh:mm:ss (ex: 14:23:54), if you put \"0\" as value, this option will be disabled. It permit to start the bot as the wanted time by click on \"Start\" on popup. <b>To use this option, you must be on Supreme page and don’t leave it."
+		case 'retrykeyword':
+			return "If you don’t found any item by using keywords, this option will try to found item again in given delay, value must be in millisecond (1 second = 1000 milliseconds). If you put  \"0\" as value, this option will be disabled."
+		case 'removeCaptcha':
+			return "This feature remove the captcha on checkout page. This option is not recommanded because payment can fail."
+	}
+}
+
+
 const 
 	paramsFields = ["startTime", "retrykeyword"],
 	checkBox = ["enabled", "checkCart", "autoFill", "autoCheckout", "retryOnFail", "nextSize", "removeCaptcha"],
@@ -276,7 +347,7 @@ const
 				})
 			}
 		})
-		dsp(gM("paramsSuccess"), "success")
+		dsp("Settings has been updated.", "success")
 	}
 
 //fill inputs with localStorage
@@ -299,86 +370,12 @@ const
 		document.getElementById("close-modal").className = "btn btn-"+type
 		$('#important-msg').modal()  
 	},
-	//change active tab with content
-	setActiveTab = tab => {
-		const navlink = document.getElementsByClassName('nav-link')
-		Array.prototype.forEach.call(navlink, element => {
-			element.className = "nav-link"
-		})
-		tab = tab.indexOf("#") == -1 ? tab : tab.split("#")[1]
-		if (document.getElementsByClassName("visible")[0] !== undefined)
-			document.getElementsByClassName("visible")[0].className = "invisible"
-		document.getElementById(tab).className = "visible"
-		document.querySelectorAll('[href="#'+tab+'"]')[0].className = "nav-link active"
-		translate[tab]()
-	},
 	//init all settings page
 	 _init = () => {
 		generateExpireDate()
 		Data.fill()
-		location.hash == "" ? setActiveTab("main") : setActiveTab(location.hash)
 	}
 
-window.onhashchange = () => setActiveTab(location.hash)
-
-$('.version').html('v' + chrome.runtime.getManifest().version)
+document.title = "COPIT v" + chrome.runtime.getManifest().version
 
 document.body.onload = _init
-
-/*
-* Translation using chrome.i18n, languages are stored in _locales
-* I know this is hard to understand lol just don't try to change anything here
-*/
-
-document.title = gM('settingsTitle')
-document.getElementsByClassName("nav-link")[0].innerText = gM("navMain")
-document.getElementsByClassName("nav-link")[1].innerText = gM("navData")
-document.getElementsByClassName("nav-link")[2].innerText = gM("navKeywords")
-document.getElementById("close-modal").innerText = gM("closeModal")
-
-const translate = {
-	main: () => {
-		document.getElementById("main").childNodes[0].innerText = gM("mainTitle")
-		document.getElementById("main").childNodes[1].innerHTML = gM("mainDesc")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[0].childNodes[0].innerText = gM("params0")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[1].childNodes[0].innerText = gM("params1")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[2].childNodes[0].innerText = gM("params2")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[3].childNodes[0].innerText = gM("params2_1")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[4].childNodes[0].innerText = gM("params3")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[5].childNodes[0].innerText = gM("params4")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[6].childNodes[0].innerText = gM("params5")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[7].childNodes[0].innerText = gM("params6")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[0].childNodes[0].childNodes[8].childNodes[0].innerText = gM("params7")
-		document.getElementById("main").childNodes[2].childNodes[0].childNodes[1].childNodes[0].innerText = gM("submit")
-	},
-	data: () => {
-		//Shipping
-		document.getElementById("edit").innerText = gM("dataEdit")
-		document.getElementById("data").childNodes[0].innerText = gM("dataTitle")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[0].innerText = gM("dataShipping")
-		document.getElementById("data").childNodes[1].childNodes[1].childNodes[0].innerText = gM("dataBilling")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[0].childNodes[0].innerText = gM("data0")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerText = gM("data1")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[2].childNodes[0].innerText = gM("data2")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[3].childNodes[0].innerText = gM("data3_1")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[4].childNodes[0].innerText = gM("data3_2")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[5].childNodes[0].innerText = gM("data3_3")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[6].childNodes[0].innerText = gM("data4")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[7].childNodes[0].innerText = gM("data5")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[8].childNodes[0].innerText = gM("data6_1")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[9].childNodes[0].innerText = gM("data6_2")
-		document.getElementById("data").childNodes[1].childNodes[0].childNodes[1].childNodes[0].childNodes[10].childNodes[0].innerText = gM("data6_3")
-		//Billing
-		document.getElementById("data").childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[0].childNodes[0].innerText = gM("data7")
-		document.getElementById("data").childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[1].childNodes[0].innerText = gM("data8")
-		document.getElementById("data").childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[2].childNodes[0].innerText = gM("data9")
-		document.getElementById("data").childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[3].childNodes[0].innerText = gM("data10")
-		document.getElementById("data").childNodes[1].childNodes[1].childNodes[1].childNodes[0].childNodes[4].childNodes[1].innerHTML = gM("data11")
-	},
-	keywords: () => {
-		document.getElementById("editKeyword").innerText = gM("keywordsEdit")
-		document.getElementById("keywords").childNodes[0].innerText = gM("navKeywords")
-		document.getElementById("keywords").childNodes[1].innerHTML = gM("keywordsDesc")
-
-	}
-}

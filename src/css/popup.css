@@ -16,7 +16,7 @@ html {
 body {
   margin: 0;
   text-align: center;
-  background-image: url('/images/bg.jpg');
+  background-image: url('/img/bg-popup.jpg');
   background-size: 100%;
   background-repeat: no-repeat;
 }
@@ -110,8 +110,8 @@ img {
 }
 
 .button.start {
-  background-color: #C80000;
-  border-color: #C80000;
+  background-color: #000;
+  border-color: #000;
 }
 
 .button.disabled {

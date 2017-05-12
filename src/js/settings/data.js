@@ -18,25 +18,25 @@ const
 		}
 	},
 	Data = {
-		fields: ["name",
-				"card_type",
+		fieldsShipping: ["name",
 				"email",
-				"card_number",
 				"phone",
-				"card_month",
-				"card_year",
 				"address1",
 				"address2",
 				"address3",
-				"cvv",
 				"city",
 				"zip",
 				'state',
 				'province',
 				"country"],
+		fieldsBilling: ["card_number",
+						"card_year",
+						"card_month",
+						"card_type",
+						"cvv"],
 		fill: () => {
-			document.getElementById("cgu").checked = JSON.parse(localStorage['cgu'])
-			Data.fields.forEach(data => {
+			var inputs = Data.fieldsShipping.concat(Data.fieldsBilling)
+			inputs.forEach(data => {
 				if (typeof DATA[data] !== "undefined")
 					document.getElementById(data).value = DATA[data]
 
@@ -49,21 +49,26 @@ const
 				}
 			})
 		},
-		checkIfFilled: cb => {
-			if (document.getElementById("cgu").checked === false)
-				cb(gM("dataErrorTos"))
-			else {
-				var error = ''
-				Data.fields.forEach((input, index, array) => {
-					if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
-						//address2 and 3 are optional
-						if (input != "address2" && input != "address3") {
-							error += gM("emptyField", input)
-						}
+		checkIfShippingFilled: cb => {
+			var error = ''
+			Data.fieldsShipping.forEach((input, index, array) => {
+				if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
+					//address2 and 3 are optional
+					if (input != "address2" && input != "address3") {
+						error += "- Field " + input + " is empty.<br/>"
 					}
-					if (index === array.length - 1) cb(error)
-				})
-			}
+				}
+				if (index === array.length - 1) cb(error)
+			})
+		},
+		checkIfBillingFilled: cb => {
+			var error = ''
+			Data.fieldsBilling.forEach((input, index, array) => {
+				if (document.getElementById(input).value == '' && $('#'+input).is(":visible")) {
+					error += "- Field " + input + " is empty.<br/>"
+				}
+				if (index === array.length - 1) cb(error)
+			})
 		}
 	},
 	countryChange = () => {
@@ -80,12 +85,25 @@ const
 			document.getElementById('state_row').style.display = 'none'
 		}
 	},
-	editData = () => {
-		Data.checkIfFilled(r => {
+	editShipping = () => {
+		Data.checkIfShippingFilled(r => {
 			if (r.length == 0) {
-				dsp(gM("dataSuccess"), "success")
-				var dataObj = {}
-				Data.fields.forEach((data, index, array) => {
+				dsp("Information has been updated", "success")
+				var dataObj = JSON.parse(localStorage["data"])
+				Data.fieldsShipping.forEach((data, index, array) => {
+					dataObj[data] = document.getElementById(data).value
+					if (index === array.length - 1) 
+						localStorage["data"] = JSON.stringify(dataObj)
+				})
+			} else dsp(r, "error")		
+		})
+	},
+	editBilling = () => {
+		Data.checkIfBillingFilled(r => {
+			if (r.length == 0) {
+				dsp("Information has been updated", "success")
+				var dataObj = JSON.parse(localStorage["data"])
+				Data.fieldsBilling.forEach((data, index, array) => {
 					dataObj[data] = document.getElementById(data).value
 					if (index === array.length - 1) 
 						localStorage["data"] = JSON.stringify(dataObj)
@@ -96,7 +114,5 @@ const
 
 document.getElementById('country').onchange = countryChange
 
-document.getElementById("cgu").onclick = _ => {
-	localStorage['cgu'] = document.getElementById("cgu").checked
-}
-document.getElementById("edit").onclick = editData
+document.getElementById("billingSubmit").onclick = editBilling
+document.getElementById("shippingSubmit").onclick = editShipping

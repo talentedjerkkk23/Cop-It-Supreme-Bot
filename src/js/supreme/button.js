@@ -3,7 +3,7 @@ const
 		var btn = document.createElement("input")
 		btn.id = "quickbuy"
 	    btn.type = "button"
-	    btn.value = gM("instantBuy")
+	    btn.value = "instant buy"
 	    btn.className = "button"
 	    btn.style = "background-color: #000000; border-color: #000000; margin-top: 30px;"
 	    btn.onclick = clickOnBuy
@@ -29,8 +29,7 @@ const
 					return 0
 			})()
 		}
-
-		if (confirm(gM("confirmDialog", [article.name, article.size, article.price])) == true) {
+		if (confirm("Do you confirm the instant purchase of:\n\n" + article.name +", size: " + article.size + "\n\nFor the price of " + article.price + " ?\n\n(The parameter \"Auto-fill chekcout page and submit it\" must be enabled)") == true) {
 
 			$.ajax({
 				type: 'POST',

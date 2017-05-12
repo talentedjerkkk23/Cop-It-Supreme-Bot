@@ -43,7 +43,7 @@ const
 				})
 			}
 		})
-		dsp(gM("paramsSuccess"), "success")
+		dsp("Settings has been updated.", "success")
 	}
 
 //fill inputs with localStorage

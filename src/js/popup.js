@@ -19,7 +19,7 @@ const
 			if (Number.isInteger(startTime) && nowTime < startTime)
 				loaderCountdown(settings["startTime"])
 			else
-				$("#loader").html("<u>" + gM("loader") + "</u>")
+				$("#loader").html("<u>Bot has been started.</u>")
 
 			$("#loader").fadeIn("fast")
 
@@ -28,7 +28,7 @@ const
 			start.onclick = null
 			
 		} else {
-			alert(gM('fillDatas'))
+			alert("You must fill shipping/billing information.")
 		}
 	}
 	loaderCountdown = startTime => {
@@ -42,9 +42,9 @@ const
 			let seconds = startSeconds - nowSeconds
 			if (seconds == 0) {
 				clearInterval(refresh)
-				$("#loader").html("<u>" + gM("loader") + "</u>")
+				$("#loader").html("<u>Bot has been started.</u>")
 			} else
-				$("#loader").html(gM("startAt", seconds))
+				$("#loader").html("Bot will start in " + seconds + " seconds.")
 		}, 1000)
 	}
 
@@ -57,12 +57,7 @@ if (isKwInstalled() && enabledExtension) {
 document.getElementById("nbkws").innerHTML = (() => {
 	var nb = keywordData[0]['keyword'] != '' ? Object.keys(keywordData).length : 0
 
-	return '<b>' + gM('nbKeywords', nb) +'</b>'
+	return '<b>You have set ' + nb + ' keywords.</b>'
 })()
 
 document.getElementById('settings').onclick = () => chrome.tabs.create({ url: location.href.replace("popup", "settings") })
-document.getElementById('docu').onclick = () => chrome.tabs.create({ url: "https://copit.fr/doc"})
-
-start.value = gM("startVal")
-document.getElementById('settings').value = gM("settings")
-document.getElementById('docu').value = gM('documentation')

@@ -5,7 +5,7 @@ const
 							"<option>32</option>" +
 							"<option>34</option>" +
 							"<option>36</option>" +
-							"<option value=\"0\">" + gM("noMatter") + "</option>",
+							"<option value=\"0\">No matter</option>",
 				    "shoes":
 							"<option>US 7 / UK 6</option>" + 
 							"<option>US 7.5 / UK 6.5</option>" +
@@ -18,13 +18,13 @@ const
 							"<option>US 11 / UK 10</option>" +
 							"<option>US 11.5 / UK 10.5</option>" +
 							"<option>US 12 / UK 11</option>" +
-							"<option value=\"0\">" + gM("noMatter") + "</option>",
+							"<option value=\"0\">No matter</option>",
 					"default":
 							"<option>Small</option>" +
 	                        "<option>Medium</option>" +
 	                        "<option>Large</option>" +
 	                        "<option>XLarge</option>" +
-	                        "<option value=\"0\">" + gM("noMatter") + "</option>"},
+	                        "<option value=\"0\">No matter</option>"},
 	editKeyword = () => {
 		var keywordData = {}, error = ""
 		Array.prototype.forEach.call(document.getElementsByClassName("kwf"), (element, divIndex, divArray) => {
@@ -34,14 +34,14 @@ const
 			keywordfields.forEach((data, fieldIndex, fieldArray) => {
 				var fieldName = data + "[" + ID + "]"
 				if (document.getElementById(fieldName).value == '') {
-					error += gM("emptyField", fieldName)
+					error += "- Field " + fieldName + " is empty.<br/>"
 				} else {
 					keywordData[ID][data] = document.getElementById(fieldName).value
 				}
 				if (divIndex === divArray.length - 1 && fieldIndex === fieldArray.length - 1) {
 					if (error.length == 0) {
 						localStorage["keyword"] = JSON.stringify(keywordData)
-						dsp(gM("keywordsUpdated"), "success")
+						dsp("Keywords has been updated.", "success")
 					} else dsp(error, "error")
 				}
 			})
@@ -60,9 +60,9 @@ function addKeywordForm(id) {
 		deleteLine = formId != 0 ? '<tr><td colspan="2""><center><button class="btn btn-sm btn-danger" id="removeForm['+formId+']">X</button></center></td</tr>' : ''
 	newForm.className = "col-lg-6 kwf"
 	newForm.id = "keywordForm["+formId+"]"
-	newForm.innerHTML = '<table class="table table-bordered table-sm table-striped" style="margin-top: 20px;">' +
+	newForm.innerHTML = '<table class="table table-sm" style="margin-top: 20px;">' +
                             '<tbody>' +
-                                '<tr><td>' + gM("category") + '</td><td>' +
+                                '<tr><td>Category</td><td>' +
                                     '<select class="form-control" id="category['+formId+']">' +
                                         '<option value="jackets">jackets</option>' +
                                         '<option value="shirts">shirts</option>' +
@@ -77,9 +77,9 @@ function addKeywordForm(id) {
                                         '<option value="skate">skate</option>' +
                                     '</select>' +
                                 '</td></tr>' +
-                                '<tr><td>' + gM("keywordsField") + '</td><td><input class="form-control" id="keyword['+formId+']" type="text"/></td></tr>' +
-                                '<tr><td>' + gM("color") + '</td><td><input class="form-control" id="color['+formId+']" type="text"/></td></tr>' +
-                                '<tr><td>' + gM("size") + '</td><td>' +
+                                '<tr><td>Keywords <i>(Separated from a space)</i></td><td><input class="form-control" id="keyword['+formId+']" type="text"/></td></tr>' +
+                                '<tr><td>Color</td><td><input class="form-control" id="color['+formId+']" type="text"/></td></tr>' +
+                                '<tr><td>Size</td><td>' +
                                     '<select class="form-control" id="size['+formId+']">'
                                         + differentSize.default +
                                     '</select>' +

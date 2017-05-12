@@ -14,9 +14,3 @@ var _initKeyword = _ => {
 		i++
 	}
 }
-
-// getMessage for translation
-function gM(msg, params=[]){
-	params = typeof params != "object" ? params.toString().split() : params
-	return chrome.i18n.getMessage(msg, params)
-}

@@ -1,14 +1,13 @@
 {
   "manifest_version": 2,
 
-  "name": "__MSG_extName__",
-  "default_locale": "en",
+  "name": "Cop It - Supreme Bot",
   "short_name": "CopIt",
-  "description": "__MSG_extDesc__",
-  "version": "1.0.15",
+  "description": "Purchase any item with only 1 click when they are released! With regular updates.",
+  "version": "1.1.0",
   "author": "Carl1to",
   "icons": {
-    "256": "images/icon.png"
+    "256": "img/icon.png"
   },
   "permissions": [
     "tabs",
