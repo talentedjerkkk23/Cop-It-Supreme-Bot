@@ -30,7 +30,7 @@ gulp.task('css', function() {
 gulp.task('build', function() {
   return gulp.src('dist')
     .pipe(crx({
-      privateKey: fs.readFileSync('./key/copit.pem', 'utf8'),
+      privateKey: fs.readFileSync('./copit.pem', 'utf8'),
       filename: 'CopIt.crx'
     }))
     .pipe(gulp.dest('bin'));
