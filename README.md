@@ -1,5 +1,5 @@
 # Cop-It-Supreme-Bot
-Supreme bot extension for Google Chrome. With this bot you can cop any item you want. Make with JavaScript, HTML/CSS and bootstrap 4.
+Supreme bot extension for Google Chrome. With this bot you can cop any item you want. Make with JavaScript, jQuery and Bootstrap 4.
 
 ## Features
 * (NEW) Theme has been updated, dark theme now.
@@ -17,10 +17,10 @@ Supreme bot extension for Google Chrome. With this bot you can cop any item you 
 ## Installation
 Go to [chrome://extensions](chrome://extensions), then enable "Developer Mode" and drag the file `CopIt.crx` (you can find it in `bin` folder) on the page.
 
-So I you want to build yourself with your modifications, just run `npm install`, then `gulp` and finally `gulp build`
+So if you want to build yourself with your modifications, just run `npm install`, then `gulp` and finally `gulp build`
 
 Go to the settings page and fill it with all settings you want.
 
 ## Documentation
-You can find all information on the settings page, you can contact me at support@copit.fr you want to know something.
+You can find all information on the settings page, you can contact me at support@copit.fr if you wanna know something.
 
