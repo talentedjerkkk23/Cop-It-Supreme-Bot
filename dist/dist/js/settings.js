@@ -126,10 +126,18 @@ const
 							"<option>36</option>" +
 							"<option value=\"0\">No matter</option>",
 					"shorts":
+							"<optgroup label='Standard Sizes (i.e water shorts)'>" +
 							"<option>Small</option>" +
 	                        "<option>Medium</option>" +
 	                        "<option>Large</option>" +
 	                        "<option>XLarge</option>" +
+	                        "</optgroup>" +
+	                        "<optgroup label='Pants Sizes'>" +
+	                        "<option>30</option>" + 
+							"<option>32</option>" +
+							"<option>34</option>" +
+							"<option>36</option>" +
+							"</optgroup>" +
 	                        "<option value=\"0\">No matter</option>",
 				    "shoes":
 							"<option>US 7 / UK 6</option>" + 
@@ -204,7 +212,7 @@ function addKeywordForm(id) {
                                     '</select>' +
                                 '</td></tr>' +
                                 '<tr><td>Keywords <i>(Separated from a space)</i></td><td><input class="form-control" id="keyword['+formId+']" type="text"/></td></tr>' +
-                                '<tr><td>Color</td><td><input class="form-control" id="color['+formId+']" type="text"/></td></tr>' +
+                                '<tr><td>Color <i>(Leave a space if no matter)</i></td><td><input class="form-control" id="color['+formId+']" type="text"/></td></tr>' +
                                 '<tr><td>Size</td><td>' +
                                     '<select class="form-control" id="size['+formId+']">'
                                         + differentSize.default +
