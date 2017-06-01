@@ -125,6 +125,12 @@ const
 							"<option>34</option>" +
 							"<option>36</option>" +
 							"<option value=\"0\">No matter</option>",
+					"shorts":
+							"<option>Small</option>" +
+	                        "<option>Medium</option>" +
+	                        "<option>Large</option>" +
+	                        "<option>XLarge</option>" +
+	                        "<option value=\"0\">No matter</option>",
 				    "shoes":
 							"<option>US 7 / UK 6</option>" + 
 							"<option>US 7.5 / UK 6.5</option>" +
@@ -188,6 +194,7 @@ function addKeywordForm(id) {
                                         '<option value="tops_sweaters">tops/sweaters</option>' +
                                         '<option value="sweatshirts">sweatshirts</option>' +
                                         '<option value="pants">pants</option>' +
+                                        '<option value="shorts">shorts</option>' +
                                         '<option value="t-shirts">t-shirts</option>' +
                                         '<option value="hats">hats</option>' +
                                         '<option value="bags">bags</option>' +
