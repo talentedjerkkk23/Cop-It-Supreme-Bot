@@ -18,7 +18,6 @@ const
 		quickCheckout: url => url.indexOf("/checkout") != -1 ? true : false
 	},
 	pageAction = {
-
 		createBuyButton: () => {
 			const buttons = {
 				addCart: document.getElementById('add-remove-buttons') ? document.getElementById('add-remove-buttons') : false,
@@ -65,7 +64,7 @@ function runKeyword() {
 		var sizeWanted = rep["size"]
 		var sizeForm = document.getElementById("size")
 		
-		for(var index in sizeForm) {
+		for (var index in sizeForm) {
 			index = parseInt(index)
 			var html = sizeForm[index] != undefined ? sizeForm[index].innerHTML : sizeWanted
 			if(html == sizeWanted || sizeWanted == "0") {
@@ -82,8 +81,7 @@ function runKeyword() {
 					if (res["nextSize"])
 						_submitForm()
 					else 
-						//chrome.runtime.sendMessage({msg: "cop", id: key})
-						console.log()
+						chrome.runtime.sendMessage({msg: "cop", id: key})
 				})
 				break
 			}
@@ -92,9 +90,8 @@ function runKeyword() {
 }
 
 function _init() {
-	if (validUrl.item(location.href) && validUrl.keyword(location.href)) {
+	if (validUrl.item(location.href) && validUrl.keyword(location.href))
 		runKeyword()
-	}
 	else if (validUrl.quickCheckout(location.href)) {
 
 		chrome.runtime.sendMessage({msg: "params"}, res => {
@@ -106,7 +103,7 @@ function _init() {
 
 	} else {
 		//create buy button if is not here
-		setInterval(_ => {
+		setInterval(() => {
 			if (!document.getElementById("quickbuy") && validUrl.item(location.href)) {
 				pageAction.createBuyButton()
 			}
@@ -116,5 +113,6 @@ function _init() {
 }
 
 chrome.runtime.sendMessage({msg: "params"}, res => {
-   if (res["enabled"]) _init()
+   if (res["enabled"])
+   		_init()
 })

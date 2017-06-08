@@ -27,19 +27,21 @@ function find(key) {
 
 						kw = kw.toLowerCase()
 
-						if (name.toLowerCase().indexOf(kw) != -1)
+						if (name.toLowerCase().indexOf(kw) > -1)
 							nameMatches++
 
 						if (index === array.length - 1) {
 
-							if (nameMatches === array.length && itemColor.indexOf(keywords.color === ' ' ? '' : keywords.color) > -1 && ended == 0) {
+							let colorFound = keywords.color === ' ' ? true : itemColor.indexOf(keywords.color) > -1
+
+							if (nameMatches === array.length && colorFound && ended == 0) {
 
 								ended = 1
 
-								if (!isSoldOut)
+								//if (!isSoldOut)
 									location.href = "http://www.supremenewyork.com" + itemUrl + "#" + key //#key is for detect auto-purchase
-								else
-									chrome.runtime.sendMessage({msg: "cop", id: key})
+								//else
+									//chrome.runtime.sendMessage({msg: "cop", id: key})
 
 							}
 							else if (itemId === arr.length - 1 && index === array.length - 1 && ended == 0) {
