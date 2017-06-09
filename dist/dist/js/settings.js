@@ -308,9 +308,9 @@ function getSettingsDoc(id) {
 		case 'nextSize':
 			return "With keywords you can choose the wanted size, if size is sold-out, the bot will choose the next one."
 		case 'startTime':
-			return "Start time must be in this format hh:mm:ss (ex: 14:23:54), if you put \"0\" as value, this option will be disabled. It permit to start the bot as the wanted time by click on \"Start\" on popup. <b>To use this option, you must be on Supreme page and don’t leave it."
-		case 'retrykeyword':
-			return "If you don’t found any item by using keywords, this option will try to found item again in given delay, value must be in millisecond (1 second = 1000 milliseconds). If you put  \"0\" as value, this option will be disabled."
+			return "Exact hour of the drop is recommanded. Start time must be in this format hh:mm:ss (ex: 14:23:54), if you put \"0\" as value, this option will be disabled. It permit to start the bot as the wanted time by click on \"Start\" on popup. <b>To use this option, you must be on Supreme page and don’t leave it."
+		case 'startWhenUpdated':
+			return "<b>Previous feature must be enabled.</b> Start the bot at the second when the new drop list is online. The bot must be started by the Start button."
 		case 'removeCaptcha':
 			return "This feature remove the captcha on checkout page. This option is not recommanded because payment can fail."
 	}
@@ -318,8 +318,8 @@ function getSettingsDoc(id) {
 
 
 const 
-	paramsFields = ["startTime", "retrykeyword"],
-	checkBox = ["enabled", "checkCart", "autoFill", "autoCheckout", "retryOnFail", "nextSize", "removeCaptcha"],
+	paramsFields = ["startTime"],
+	checkBox = ["enabled", "checkCart", "autoFill", "autoCheckout", "retryOnFail", "nextSize", "removeCaptcha", "startWhenUpdated"],
 	//format time to hh:mm:ss. ex: 22:14:45 
 	formatTime = (time, callback) => {
 		time = time.toString()

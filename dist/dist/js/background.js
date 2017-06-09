@@ -17,38 +17,62 @@ var _initKeyword = _ => {
 const 
 	_startTheBot = () => {
 		// this function check is a startTime is defined and start the bot
+		var startAtNewDrop = JSON.parse(localStorage["params"])["startWhenUpdated"]
 		var startTime = JSON.parse(localStorage["params"])["startTime"] != undefined ? JSON.parse(localStorage["params"])["startTime"] : '0'
 		startTime = parseInt(startTime.replace(/:/g, ""))
 
 		var waitTime = setInterval(() => {
 
-			var currentDate = new Date()
-			var minutes = currentDate.getMinutes() < 10 ? "0" + "" + currentDate.getMinutes() : currentDate.getMinutes()
-			var seconds = currentDate.getSeconds() < 10 ? "0" + "" + currentDate.getSeconds() : currentDate.getSeconds()
-			var nowTime = parseInt(currentDate.getHours() + "" + minutes + "" + seconds)
+			var nowTime = parseInt(new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1").replace(/:/g, ""))
+			var timeCondition = startAtNewDrop
+								? startTime < nowTime - 5 //5 seconds before we check when drop will by updated
+								: startTime < nowTime
+
+			if (timeCondition) {
+
+				getSupremeTabId()
+					.then(tabId => {
+						clearInterval(waitTime)
+
+						keywordData = JSON.parse(localStorage["keyword"])
+
+						_initKeyword()
+
+						if (startAtNewDrop)
+							updateTab(tabId, "http://supremenewyork.com/shop/all?od", _ => {})
+						else
+							cop(tabId, 0)
+					},
+					_ => {
+						clearInterval(waitTime)
+						if (startTime < nowTime)
+							alert("You must be on supremenewyork.com to start the bot")
+						else
+							alert("Bot will not start because you left supremenewyork.com")
+					})
+
+			}
+		}, 500)
+	},
+	getSupremeTabId = () => {
+		return new Promise(function(accept, reject) {
 
 			chrome.tabs.query({}, tabs => {
-				if (startTime < nowTime) {
+
 					for (var tab in tabs) {
+
 			    		if (tabs[tab].url.indexOf("supremenewyork.com") > -1) {
-							clearInterval(waitTime)
-							//start the bot
-							keywordData = JSON.parse(localStorage["keyword"])
-							_initKeyword()
-							cop(tabs[tab].id, 0)
-							break
-						}
-						else if (tab == tabs.length - 1) {
-							clearInterval(waitTime)
-							if (startTime < nowTime)
-								alert("You must be on supremenewyork.com to start the bot")
-							else
-								alert("Bot will not start because you left supremenewyork.com page.")
-						}
-					}
-				}
+
+			    			accept(tabs[tab].id)
+			    			break
+
+			    		}
+			    		else if (tab == tabs.length - 1)
+			    			reject()
+
+			    	}
 			})
-		}, 500)
+		})
 	},
 	cop = (tabId, id) => {
 		//cop by item id and tab id
@@ -75,10 +99,14 @@ const
 				}
 			})
 		})
-	}
+	};
+
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	switch(request.msg) {
+		case 'oldItem':
+			sendResponse({url: "http://supremenewyork.com/shop/all?nd", item: request.item})
+			break
 		case 'isEnabled':
 			sendResponse({enabled: JSON.parse(localStorage['enabled'])})
 			break
@@ -91,6 +119,10 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 		case 'startBot':
 			_startTheBot()
 			break
+		case 'startCop':
+			getSupremeTabId()
+				.then(tabId => cop(tabId, 0))
+			break
 		case 'keywordsData': // @params: id => return array of keywords data from id
 			sendResponse(JSON.parse(localStorage['keyword'])[request.id])
 			break
@@ -98,7 +130,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 			var nextID = parseInt(request.id)+1,
 				tabId = sender.tab.id
 
-			if (keywordID[nextID] != undefined) //check if there are other item to cop
+			if (keywordID[nextID]) //check if there are other item to cop
 				cop(tabId, keywordID[nextID])
 			else { //go checkout
 
@@ -123,11 +155,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 							break
 							
 						} else if (index === keywordID.length - 1) {
-							//if no items found, try again
-							if (JSON.parse(localStorage["params"])["retrykeyword"] > 0) 
-								setTimeout(_startTheBot, parseInt(JSON.parse(localStorage["params"])["retrykeyword"]))
-							else
-								alert("No item found with provided keywords, please check them.")
+							alert("No item found with provided keywords, please check them.")
 							break
 						}
 					}

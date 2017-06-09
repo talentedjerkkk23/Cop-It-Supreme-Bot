@@ -3,17 +3,13 @@ const
 	settings = JSON.parse(localStorage["params"]),
 	enabledExtension = settings["enabled"],
 	start = document.getElementById("start"),
-	//check if keywords are configured
-	isKwInstalled = () => keywordData[0]['keyword'] != '' ? true : false,
+	isKwInstalled = () => keywordData[0]['keyword'] != '' ? true : false, ////check if keywords are configured
 	startBot = () => {
 		if (localStorage['data'].length > 4) {
 
 			chrome.runtime.sendMessage({msg: 'startBot'})
 
-			var currentDate = new Date()
-			var minutes = currentDate.getMinutes() < 10 ? "0" + "" + currentDate.getMinutes() : currentDate.getMinutes()
-			var seconds = currentDate.getSeconds() < 10 ? "0" + "" + currentDate.getSeconds() : currentDate.getSeconds()
-			var nowTime = currentDate.getHours() + "" + minutes + "" + seconds
+			var nowTime = parseInt(new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1").replace(/:/g, ""))
 			var startTime = parseInt(settings["startTime"].replace(/:/g, ""))
 
 			if (Number.isInteger(startTime) && nowTime < startTime)
@@ -35,8 +31,7 @@ const
 		var separation = startTime.split(':')
 		var startSeconds = (+separation[0]) * 60 * 60 + (+separation[1]) * 60 + (+separation[2])
 		var refresh = setInterval(() => {
-			let currentDate = new Date()
-			let nowTime = currentDate.getHours() + ":" + currentDate.getMinutes() + ":" + currentDate.getSeconds()
+			let nowTime = new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1")
 			let separationNow = nowTime.split(':')
 			let nowSeconds = (+separationNow[0]) * 60 * 60 + (+separationNow[1]) * 60 + (+separationNow[2])
 			let seconds = startSeconds - nowSeconds

@@ -1,6 +1,6 @@
 const 
-	paramsFields = ["startTime", "retrykeyword"],
-	checkBox = ["enabled", "checkCart", "autoFill", "autoCheckout", "retryOnFail", "nextSize", "removeCaptcha"],
+	paramsFields = ["startTime"],
+	checkBox = ["enabled", "checkCart", "autoFill", "autoCheckout", "retryOnFail", "nextSize", "removeCaptcha", "startWhenUpdated"],
 	//format time to hh:mm:ss. ex: 22:14:45 
 	formatTime = (time, callback) => {
 		time = time.toString()

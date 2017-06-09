@@ -14,8 +14,10 @@ const
 				return false
 			}
 		},
-		keyword: url => url.split("#")[1] != undefined ? true : false,
-		quickCheckout: url => url.indexOf("/checkout") != -1 ? true : false
+		keyword: url => url.split("#")[1] !== undefined,
+		quickCheckout: url => url.indexOf("/checkout") > -1,
+		oldDrop: url => url.indexOf("?od") > -1,
+		newDrop: url => url.indexOf("?nd;") > -1
 	},
 	pageAction = {
 		createBuyButton: () => {

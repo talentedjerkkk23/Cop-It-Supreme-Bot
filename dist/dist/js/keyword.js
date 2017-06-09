@@ -38,10 +38,10 @@ function find(key) {
 
 								ended = 1
 
-								//if (!isSoldOut)
+								if (!isSoldOut)
 									location.href = "http://www.supremenewyork.com" + itemUrl + "#" + key //#key is for detect auto-purchase
-								//else
-									//chrome.runtime.sendMessage({msg: "cop", id: key})
+								else
+									chrome.runtime.sendMessage({msg: "cop", id: key})
 
 							}
 							else if (itemId === arr.length - 1 && index === array.length - 1 && ended == 0) {
