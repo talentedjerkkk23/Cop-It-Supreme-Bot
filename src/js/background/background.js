@@ -46,10 +46,8 @@ const
 					for (var tab in tabs) {
 
 			    		if (tabs[tab].url.indexOf("supremenewyork.com") > -1) {
-
 			    			accept(tabs[tab].id)
 			    			break
-
 			    		}
 			    		else if (tab == tabs.length - 1)
 			    			reject()
