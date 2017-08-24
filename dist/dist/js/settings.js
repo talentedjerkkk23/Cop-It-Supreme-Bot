@@ -268,6 +268,9 @@ $(".nav-item").click(e => {
 
 	var elementToDisplay = $("#" + e.target.getAttribute("show"))
 
+	if (elementToDisplay.length === 0)
+		return
+	
 	//NAVBAR
 	$(".nav-item.active").removeClass("active")
 	$(e.target).parent().addClass("active")
@@ -315,7 +318,6 @@ function getSettingsDoc(id) {
 			return "This feature remove the captcha on checkout page. This option is not recommanded because payment can fail."
 	}
 }
-
 
 const 
 	paramsFields = ["startTime"],

@@ -9,7 +9,7 @@ const
 
 			var nowTime = parseInt(new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1").replace(/:/g, ""))
 			var timeCondition = startAtNewDrop
-								? startTime < nowTime - 5 //5 seconds before we check when drop will by updated
+								? startTime - 8 < nowTime //8 seconds before we check when drop will by updated
 								: startTime < nowTime
 
 			if (timeCondition) {
@@ -84,6 +84,7 @@ const
 	};
 
 
+//messange handle
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 	switch(request.msg) {
 		case 'oldItem':

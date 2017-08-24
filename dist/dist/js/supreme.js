@@ -221,8 +221,17 @@ else if (validUrl.newDrop(location.href)) {
 	//droplist updated!
 	if (oldItem !== getFirstItem())
 		chrome.runtime.sendMessage({msg: "startCop"})
-	else
-		setTimeout(() => location.reload(), 1234)
+	else {
+		chrome.runtime.sendMessage({msg: "params"}, res => {
+			var startTime = parseInt(res["startTime"].replace(/:/g, ""))
+			var nowTime = parseInt(new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1").replace(/:/g, ""))
+
+			if (nowTime > startTime + 3)
+				chrome.runtime.sendMessage({msg: "startCop"})
+			else
+				setTimeout(() => location.reload(), 1212)
+		})
+	}
 	
 }
 
