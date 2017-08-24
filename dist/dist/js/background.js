@@ -38,7 +38,11 @@ const
 
 						_initKeyword()
 
-						if (startAtNewDrop)
+						/*
+						  if we are at more than 3 sec from the start time with "Automatic start when items list is updated"
+						  option enabled, start the bot directly without waiting for the new drop
+						*/
+						if (startAtNewDrop && nowTime < startTime + 3)
 							updateTab(tabId, "http://supremenewyork.com/shop/all?od", _ => {})
 						else
 							cop(tabId, 0)
