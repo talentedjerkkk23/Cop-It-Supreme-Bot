@@ -1,8 +1,10 @@
 # Cop-It-Supreme-Bot
 Supreme bot extension for Google Chrome. With this bot you can cop any item you want. Make with JavaScript, jQuery and Bootstrap 4.
 
+### Changelog
+⋅⋅* __v1.1.6__ - Feature "Remove all images on Supreme's website" has been added.
+
 ## Features
-* (NEW) Theme has been updated, dark theme now.
 * You can run the bot in background, just open tab on "supremenewyork.com" page and start the bot on other tab.
 * All sizes available (pants, top, shoes)
 * USA, CANADA and EUROPE are supported.

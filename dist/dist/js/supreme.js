@@ -180,16 +180,16 @@ function runKeyword() {
 	})
 }
 
-function _init() {
+function _init(params) {
 	if (validUrl.item(location.href) && validUrl.keyword(location.href))
 		runKeyword()
 	else if (validUrl.quickCheckout(location.href)) {
-		chrome.runtime.sendMessage({msg: "params"}, res => {
-			if (document.getElementById('order_billing_name') && res["autoFill"] && res["retryOnFail"])
+
+		if (document.getElementById('order_billing_name') && params["autoFill"] && params["retryOnFail"])
+			pageAction.autoCheckout()
+		else if (document.getElementById('order_billing_name').value.length == 0 && params["autoFill"])
 				pageAction.autoCheckout()
-			else if (document.getElementById('order_billing_name').value.length == 0 && res["autoFill"])
-				pageAction.autoCheckout()
-		})
+
 	} else {
 		//create buy button if is not here
 		setInterval(() => {
@@ -203,7 +203,7 @@ function _init() {
 
 chrome.runtime.sendMessage({msg: "params"}, res => {
    if (res["enabled"])
-   		_init()
+   		_init(res)
 })
 var oldItem;
 

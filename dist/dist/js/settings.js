@@ -316,12 +316,14 @@ function getSettingsDoc(id) {
 			return "<b>Previous feature must be enabled.</b> Start the bot at the second when the new drop list is online. The bot must be started by the Start button."
 		case 'removeCaptcha':
 			return "This feature remove the captcha on checkout page. This option is not recommanded because payment can fail."
+		case 'hideImages':
+			return "Remove all images on www.supremenewyork.com, recommanded if you've a weak internet connection."
 	}
 }
 
 const 
 	paramsFields = ["startTime"],
-	checkBox = ["enabled", "checkCart", "autoFill", "autoCheckout", "retryOnFail", "nextSize", "removeCaptcha", "startWhenUpdated"],
+	checkBox = ["enabled", "checkCart", "autoFill", "autoCheckout", "retryOnFail", "nextSize", "removeCaptcha", "startWhenUpdated", "hideImages"],
 	//format time to hh:mm:ss. ex: 22:14:45 
 	formatTime = (time, callback) => {
 		time = time.toString()
@@ -346,14 +348,19 @@ const
 
 		paramsFields.forEach((data, index, array) => {
 
-			var value = document.getElementById(data).type == "checkbox" ? document.getElementById(data).checked : document.getElementById(data).value
+			var value = document.getElementById(data).type == "checkbox" 
+						? document.getElementById(data).checked 
+						: document.getElementById(data).value
 			
 			if(value != "")
-					dataObj[data] = value
+				dataObj[data] = value
+
+			if (data === "hideImages")
+				chrome.runtime.sendMessage({msg: "updateRemoveImages", enabled: value})
 
 			if (index === array.length - 1) {
-				//on formate le startTime a la fin
 
+				//we set the startTime at the end of the loop
 				var rawTime = dataObj["startTime"].replace(/:/g, "")
 
 				formatTime(rawTime, time => {
@@ -367,7 +374,9 @@ const
 		dsp("Settings has been updated.", "success")
 	}
 
-//fill inputs with localStorage
+/*
+	fill inputs with localStorage
+*/
 Array.prototype.push.apply(paramsFields, checkBox)
 paramsFields.forEach(data => {
 	if (typeof JSON.parse(localStorage["params"])[data] !== "undefined") {

@@ -1,7 +1,7 @@
 if (typeof localStorage["data"] !== "string") localStorage["data"] = "{}"
 if (typeof localStorage["params"] !== "string") localStorage["params"] = "{}"
 if (typeof localStorage["keyword"] !== "string") localStorage["keyword"] = '{"0": {"category":"jackets", "keyword": "", "color": "", "size": "Small"}}'
-if(localStorage['cgu'] === undefined) localStorage['cgu'] = false
+if (localStorage['cgu'] === undefined) localStorage['cgu'] = false
 
 
 var keywordData = JSON.parse(localStorage["keyword"])
@@ -14,18 +14,33 @@ var _initKeyword = _ => {
 		i++
 	}
 }
+
+function minus(start, number) {
+	if (start.toString().length !== 6)
+		return 0
+
+	var seconds = parseInt(start.toString().substr(4,2))
+	if (seconds - number < 0)
+		return start - number - 40
+	else
+		return start - number
+}
 const 
 	_startTheBot = () => {
 		// this function check is a startTime is defined and start the bot
 		var startAtNewDrop = JSON.parse(localStorage["params"])["startWhenUpdated"]
-		var startTime = JSON.parse(localStorage["params"])["startTime"] != undefined ? JSON.parse(localStorage["params"])["startTime"] : '0'
+
+		var startTime = JSON.parse(localStorage["params"])["startTime"] != undefined 
+						? JSON.parse(localStorage["params"])["startTime"] 
+						: '0'
+
 		startTime = parseInt(startTime.replace(/:/g, ""))
 
 		var waitTime = setInterval(() => {
 
 			var nowTime = parseInt(new Date().toTimeString().replace(/.*(\d{2}:\d{2}:\d{2}).*/, "$1").replace(/:/g, ""))
 			var timeCondition = startAtNewDrop
-								? startTime - 8 < nowTime //8 seconds before we check when drop will by updated
+								? minus(startTime, 8) < nowTime //8 seconds before we check when drop will by updated
 								: startTime < nowTime
 
 			if (timeCondition) {
@@ -122,6 +137,11 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 		case 'startBot':
 			_startTheBot()
 			break
+		case 'updateRemoveImages':
+			request.enabled
+			? removeImages()
+			: chrome.webRequest.onBeforeRequest.removeListener(listenerHandle)
+			break
 		case 'startCop':
 			getSupremeTabId()
 				.then(tabId => cop(tabId, 0))
@@ -167,3 +187,22 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 			break
 	}
 })
+
+/*
+	remove all images from cloudfront.net (all supreme's images are stored here)
+*/
+var listenerHandle = function() {
+	return { cancel: true }
+}
+
+function removeImages() {
+	chrome.webRequest.onBeforeRequest.addListener(
+		listenerHandle,
+		{
+			urls: [
+			   '*://*.cloudfront.net/*.jpg'
+			]
+		},
+		['blocking']
+	)
+}

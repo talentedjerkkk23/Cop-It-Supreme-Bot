@@ -52,5 +52,7 @@ function getSettingsDoc(id) {
 			return "<b>Previous feature must be enabled.</b> Start the bot at the second when the new drop list is online. The bot must be started by the Start button."
 		case 'removeCaptcha':
 			return "This feature remove the captcha on checkout page. This option is not recommanded because payment can fail."
+		case 'hideImages':
+			return "Remove all images on www.supremenewyork.com, recommanded if you've a weak internet connection."
 	}
 }
