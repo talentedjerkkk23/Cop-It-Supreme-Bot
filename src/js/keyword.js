@@ -32,7 +32,7 @@ function find(key) {
 
 						if (index === array.length - 1) {
 
-							let colorFound = keywords.color === ' ' ? true : itemColor.indexOf(keywords.color) > -1
+							let colorFound = keywords.color === ' ' ? true : itemColor.indexOf(keywords.color.toLowerCase()) > -1
 
 							if (nameMatches === array.length && colorFound && ended == 0) {
 
