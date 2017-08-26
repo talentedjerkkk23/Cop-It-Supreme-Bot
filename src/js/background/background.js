@@ -173,7 +173,8 @@ function removeImages() {
 		listenerHandle,
 		{
 			urls: [
-			   '*://*.cloudfront.net/*.jpg'
+			   '*://*.cloudfront.net/*.jpg',
+			   '*://*.cloudfront.net/*.png'
 			]
 		},
 		['blocking']

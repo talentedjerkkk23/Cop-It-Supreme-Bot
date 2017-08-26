@@ -152,7 +152,7 @@ function runKeyword() {
 	chrome.runtime.sendMessage({msg: "keywordsData", id: key}, rep => {
 
 		var sizeWanted = rep["size"]
-		var sizeForm = document.getElementById("size")
+		var sizeForm = document.getElementById("size") || document.getElementById("s")
 		
 		for (var index in sizeForm) {
 			index = parseInt(index)

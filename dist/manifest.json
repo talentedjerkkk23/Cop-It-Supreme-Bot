@@ -11,13 +11,13 @@
   },
   "permissions": [
     "tabs",
-    "*://www.supremenewyork.com/*",
+    "*://*.supremenewyork.com/*",
+    "*://*.cloudfront.net/*",
     "unlimitedStorage",
     "storage",
     "cookies",
     "webRequest",
-    "webRequestBlocking",
-    "*://*.cloudfront.net/*"
+    "webRequestBlocking"
   ],
   "options_page": "html/settings.html",
   "browser_action": {
