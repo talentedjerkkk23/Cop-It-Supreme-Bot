@@ -2,6 +2,8 @@
 Supreme bot extension for Google Chrome. With this bot you can cop any item you want. Make with JavaScript, jQuery and Bootstrap 4.
 
 ### Changelog
+* __v1.1.7__ - For USA store, correct selectors for Add to Cart and for checkout credit card fields.
+
 * __v1.1.6__ - Feature "Remove all images on Supreme's website" has been added.
 
 ## Features

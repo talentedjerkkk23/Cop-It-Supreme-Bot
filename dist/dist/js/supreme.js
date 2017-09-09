@@ -48,7 +48,7 @@ const
 const fillCheckout = () => {
 	chrome.runtime.sendMessage({msg: "privateData"}, function(data) {
 		var r = JSON.parse(data)
-		
+
 		chrome.runtime.sendMessage({msg: "params"}, function(settings) {
 
 			if ($('#order_billing_country').find('option[value=' + r.country + ']').length > 0) {
@@ -71,11 +71,22 @@ const fillCheckout = () => {
 				else if (r.country == "CANADA")
 					$('#order_billing_state').val(r.province)
 				$('#order_billing_country').val(r.country)
-				
+
 				//billing
 				$('#credit_card_type').val(r.card_type)
-				$('#cnb').val(r.card_number)
-				$('#vval').val(r.cvv)
+				// various fields that could be valid on drop day in UK & US
+				$.merge(
+					$('#nnaerb'),
+					$('[name*="credit_card[nlb]"]'),
+					$('#nlb'),
+					$('#cnb')
+				).first().val(r.card_number)
+				$.merge(
+					$('#orcer'),
+					$('[name*="credit_card[rvv]"]'),
+					$("#rvv"),
+					$('#vval')
+				).first().val(r.cvv)
 				$('#credit_card_month').val(r.card_month)
 				$('#credit_card_year').val(r.card_year)
 				$(".icheckbox_minimal").click()
