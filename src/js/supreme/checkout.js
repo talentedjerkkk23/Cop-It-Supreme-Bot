@@ -28,18 +28,10 @@ const fillCheckout = () => {
 				//billing
 				$('#credit_card_type').val(r.card_type)
 				// various fields that could be valid on drop day in UK & US
-				$.merge(
-					$('#nnaerb'),
-					$('[name*="credit_card[nlb]"]'),
-					$('#nlb'),
-					$('#cnb')
-				).first().val(r.card_number)
-				$.merge(
-					$('#orcer'),
-					$('[name*="credit_card[rvv]"]'),
-					$("#rvv"),
-					$('#vval')
-				).first().val(r.cvv)
+				$("#card_details > div > input").eq(0).val(r.card_number)
+				$("#card_details > div > input").eq(1).val(r.cvv)
+				$("#card_details > div > select").eq(0).val(r.card_month);
+				$("#card_details > div > select").eq(1).val(r.card_year);
 				$('#credit_card_month').val(r.card_month)
 				$('#credit_card_year').val(r.card_year)
 				$(".icheckbox_minimal").click()
