@@ -1,7 +1,7 @@
 //find item by provided key
 function find(key) {
 
-	var articles = document.getElementsByTagName("article")
+	var articles = $.merge($("article"), $(".item"))
 	var ended = 0 //this var is to know if item is detect or not. 1 => stop
 
 	if (articles.length != 0) {
@@ -19,7 +19,7 @@ function find(key) {
 					let itemColor = item.childNodes[0].childNodes[2].childNodes[0].textContent.toLowerCase()
 					let name = item.childNodes[0].childNodes[1].childNodes[0].textContent
 					let isSoldOut = item.childNodes[0].childNodes[0].childNodes[1] != undefined ? true : false
-					
+
 					var keywords = data
 					var nameMatches = 0
 
@@ -62,9 +62,9 @@ function find(key) {
 		})
 
 	} else {
-		
+
 		chrome.runtime.sendMessage({msg: "cop", id: key})
 
 	}
-	
+
 }
