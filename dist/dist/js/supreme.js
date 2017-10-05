@@ -22,7 +22,7 @@ const
 				}
 			})(),
 			size: (() => {
-				var s = document.getElementById("size") || document.getElementById("s")
+				var s = document.getElementById("size")
 				if (s.type != "hidden")
 					return s.options[s.selectedIndex].text
 				else
