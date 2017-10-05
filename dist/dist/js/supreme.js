@@ -48,7 +48,7 @@ const
 const fillCheckout = () => {
 	chrome.runtime.sendMessage({msg: "privateData"}, function(data) {
 		var r = JSON.parse(data)
-
+		
 		chrome.runtime.sendMessage({msg: "params"}, function(settings) {
 
 			if ($('#order_billing_country').find('option[value=' + r.country + ']').length > 0) {
@@ -69,18 +69,30 @@ const fillCheckout = () => {
 				if (r.country == "USA")
 					$('#order_billing_state').val(r.state)
 				else if (r.country == "CANADA")
-					$('#order_billing_state').val(r.province)
+					document.getElementById("state_label").innerHTML = "province";
+					document.getElementById("order_billing_state").innerHTML = '"<option value=""></option>' +
+					'<option value="AB">AB</option>' +
+					'<option value="BC">BC</option>' +
+					'<option value="MB">MB</option>' +
+					'<option value="NB">NB</option>' +
+					'<option value="NL">NL</option>' +
+					'<option value="NT">NT</option>' +
+					'<option value="NS">NS</option>' +
+					'<option value="NU">NU</option>' +
+					'<option value="ON">ON</option>' +
+					'<option value="PE">PE</option>' +
+					'<option value="QC">QC</option>' +
+					'<option value="SK">SK</option>' +
+					'<option value="YT">YT</option>'
+					$('#order_billing_state').val(r.province);
 				$('#order_billing_country').val(r.country)
-
-				//billing
-				$('#credit_card_type').val(r.card_type)
-				// various fields that could be valid on drop day in UK & US
-				$("#card_details > div > input").eq(0).val(r.card_number)
-				$("#card_details > div > input").eq(1).val(r.cvv)
+			
+				//new billing
+				$("#card_details > div > input").eq(0).val(r.card_number);
+				$("#card_details > div > input").eq(1).val(r.cvv);
 				$("#card_details > div > select").eq(0).val(r.card_month);
 				$("#card_details > div > select").eq(1).val(r.card_year);
-				$('#credit_card_month').val(r.card_month)
-				$('#credit_card_year').val(r.card_year)
+
 				$(".icheckbox_minimal").click()
 				if (settings.autoCheckout)
 					setTimeout(() => $('[name=commit]').click(), 1380)
@@ -141,7 +153,8 @@ const
 					chrome.runtime.sendMessage({msg: "cop", id: location.href.split("#")[1], rep: "ok"})
 				}
 			},
-			error: function() {
+			error: function() { 
+				console.log("error, trying again")
 				_submitForm()
 			}
 		})
