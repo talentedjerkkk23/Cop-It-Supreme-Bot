@@ -26,8 +26,7 @@ function find(key) {
 					
 					var keywords = data
 					var nameMatches = 0
-
-					keywords.keyword.split(" ").forEach((kw, index, array) => { //loop within loop
+					keywords.keyword.trim().split(" ").forEach((kw, index, array) => { //loop within loop
 					//checks if keyword is in every article
 						kw = kw.toLowerCase()
 
